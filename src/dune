@@ -1,0 +1,7 @@
+(ocamllex (modules lexer))
+(menhir (modules parser))
+(executable (name methml))
+
+(rule
+ (alias  runtest)
+ (action (run ./methml.exe test.mlsub)))
