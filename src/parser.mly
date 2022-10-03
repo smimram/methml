@@ -11,7 +11,13 @@ open Lang
 %token EOF
 
 %start prog
+
 %type<(bool * string * Lang.t) list> prog
+%type<(bool * string * Lang.t) list> decls
+%type<bool * string * Lang.t> decl
+%type<Lang.t> expr
+%type<bool> recursive
+
 %nonassoc INT IDENT FUN LACC TO LET IN
 %nonassoc APP
 %left DOT LPAR
