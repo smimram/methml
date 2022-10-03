@@ -3,5 +3,6 @@
 (executable (name methml))
 
 (rule
- (alias  runtest)
+ (alias runtest)
+ (deps test.mml)
  (action (run ./methml.exe test.mml)))

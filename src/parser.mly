@@ -18,9 +18,9 @@ open Lang
 %type<Lang.t> expr
 %type<bool> recursive
 
-%nonassoc INT IDENT FUN LACC TO LET IN
-%nonassoc APP
+%nonassoc INT STRING IDENT FUN LACC TO LET IN
 %left DOT LPAR
+%nonassoc APP
 %%
 
 prog:
@@ -28,7 +28,6 @@ prog:
 
 decls:
   | decl SC SC decls { $1::$4 }
-  | decl SC SC { [$1] }
   | { [] }
 
 decl:
