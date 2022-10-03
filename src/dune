@@ -4,4 +4,4 @@
 
 (rule
  (alias  runtest)
- (action (run ./methml.exe test.mlsub)))
+ (action (run ./methml.exe test.mml)))

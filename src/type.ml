@@ -206,13 +206,10 @@ let rec infer ?(level=0) (env:(string*scheme) list) t =
     let b = var level in
     infer env t <: Arr (a, b);
     b
-  | Record r ->
-    let r = List.map (fun (l, t) -> l, infer env t) r in
-    Record r
-  | Field (t, l) ->
-    let a = var level in
-    infer env t <: Record [l, a];
-    a
+  | Meth _ ->
+    failwith "TODO"
+  | Invoke _ ->
+    failwith "TODO"
   | Let (r, x, t, u) ->
     let a =
       if r then

@@ -4,7 +4,7 @@ build:
 	$(MAKE) -C ..
 
 test: build
-	@dune exec ./mlsub.exe test.mlsub
+	@dune runtest
 
 conflicts:
 	@rm -f parser.conflicts

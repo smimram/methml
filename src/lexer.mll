@@ -1,5 +1,5 @@
 {
-  open Parser
+open Parser
 }
 
 rule token = parse
@@ -20,6 +20,6 @@ rule token = parse
   | "\""([^'"']+ as s)"\"" { STRING s }
   | (['0'-'9']+ as n) { INT (int_of_string n) }
   | [' ']+ { token lexbuf }
-  | "//"[^'\n']*"\n" { Lexing.new_line lexbuf; token lexbuf }
+  | "#"[^'\n']*"\n" { Lexing.new_line lexbuf; token lexbuf }
   | "\n" { Lexing.new_line lexbuf; token lexbuf }
   | eof { EOF }
