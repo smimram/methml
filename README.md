@@ -51,7 +51,9 @@ where `a` is a type for `t` and `b` is a type for `u`. To be precise, `b` should
 actually be a _type scheme_ so that our records can also act as modules.
 
 The implementation should be based on previous work about records, objects and
-subtyping in ML.
+subtyping in ML. One should remark that having expressions decorated with
+methods (instead of only records) allows treating row variables as a special
+case of universal variable.
 
 ## Requirements
 
