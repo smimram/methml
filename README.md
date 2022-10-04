@@ -41,6 +41,29 @@ is the particular case of a decorated unit
 ().{l₁ = u₁, …, lₙ = uₙ}
 ```
 
+The typing of an expression of the form
+
+`t.{l = u}`{.ocaml}
+
+The implementation should be based on previous work about records, objects and
+subtyping in ML.
+
+## Requirements
+
+We should be able to use `t.{l = u}` in every place where `t` should be accepted
+(without using the method `l`). This means that, we should accept
+
+```ocaml
+1.{l = "a"} + 2
+```
+
+This also mean that we should accept heterogeneous lists as long as the
+underlying undecorated values agree : we should accept
+
+```ocaml
+[1.{a = 2, b = "a", c = 1.2}, 2.{a = 0}
+```
+
 <!-- ## Records with subtyping -->
 
 <!-- There are several approaches to (sub)typing records. -->
