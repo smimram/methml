@@ -91,6 +91,9 @@ let () =
   g r
 ```
 
+However, we should either not be able to have the same label twice, or forbid
+that two methods with the same label commute.
+
 ### Dropping methods
 
 We should be able to use `t.{l = u}` in every place where `t` should be accepted
@@ -122,6 +125,31 @@ following should return `true`:
 
 ```ocaml
 {a = 5, b = 6} == {a = 5, c = "x"}
+```
+
+## Compared to OCaml
+
+This is akin records in OCaml excepting that we want extensible records:
+
+- we don't want to have to declare the type of records beforehand,
+- we want to be able the same label in multiple records,
+- we want to be able to build records gradually.
+
+This is akin objects in OCaml excepting that we want to be able to drop
+methods. For instance, the program
+
+```ocaml
+let x = object method a = 1 method b = 2 end
+let y = object method a = 0 end
+let l = [x; y]
+```
+
+raises (on `y`)
+
+```
+Error: This expression has type < a : int >
+       but an expression was expected of type < a : int; b : int >
+       The first object type has no method b
 ```
 
 ## Subtyping
