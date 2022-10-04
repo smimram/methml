@@ -55,7 +55,7 @@ subtyping in ML.
 
 ## Requirements
 
-### Basic methods
+#### Basic methods
 
 We should of course be able to type method invocation:
 
