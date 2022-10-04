@@ -47,12 +47,25 @@ The typing of an expression of the form `t.{l = u}` should be
 a.{l : b}
 ```
 
-where `a` is a type for `t` and `b` is a type for `u`.
+where `a` is a type for `t` and `b` is a type for `u`. To be precise, `b` should
+actually be a _type scheme_ so that our records can also act as modules.
 
 The implementation should be based on previous work about records, objects and
 subtyping in ML.
 
 ## Requirements
+
+### Basic methods
+
+We should of course be able to type method invocation:
+
+```ocaml
+fun x -> x.l
+```
+
+should have type `'a.{l : 'b} -> 'b` (this is akin to polymorphic records).
+
+We should be able to 
 
 We should be able to use `t.{l = u}` in every place where `t` should be accepted
 (without using the method `l`). This means that, we should accept
@@ -77,6 +90,23 @@ int.{a : int} list
 Note that we drop the `b` method of the first element because the second one
 does not have it, and we drop the `c` method because the types for both elements
 don't match.
+
+This means that we can have surprising effects of this. For instance, the
+following should return `true`:
+
+```ocaml
+{a = 5, b = 6} == {a = 5, c = "x"}
+```
+
+## Subtyping
+
+One way of implementing this is by using _subtyping_. This means that we should
+have
+
+```
+a.{l : b} <: a
+```
+
 
 <!-- ## Records with subtyping -->
 
