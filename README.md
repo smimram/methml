@@ -55,9 +55,9 @@ subtyping in ML.
 
 ## Requirements
 
-#### Basic methods
+### Basic methods
 
-We should of course be able to type method invocation:
+We should of course be able to type _method invocation_:
 
 ```ocaml
 fun x -> x.l
@@ -65,7 +65,31 @@ fun x -> x.l
 
 should have type `'a.{l : 'b} -> 'b` (this is akin to polymorphic records).
 
-We should be able to 
+We should be able to type _method decoration_:
+
+```ocaml
+fun x y -> x.{l = y}
+```
+
+should have type `'a -> 'b -> 'a.{l : 'b}`.
+
+### Commutativity of methods
+
+The order of methods should not matter. For instance, both the following should
+type:
+
+```ocaml
+let f x = ignore x.l; ignore x.m
+
+let g x = ignore x.m; ignore x.l
+
+let () =
+  let r = {l = 1; m = 2} in
+  f r;
+  g r
+```
+
+### Dropping methods
 
 We should be able to use `t.{l = u}` in every place where `t` should be accepted
 (without using the method `l`). This means that, we should accept
