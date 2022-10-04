@@ -57,6 +57,11 @@ case of universal variable.
 
 ## Requirements
 
+We want to keep usual properties of typing
+
+- we should be able to infer types,
+- there should be a principal type.
+
 ### Basic methods
 
 We should of course be able to type _method invocation_:
@@ -126,6 +131,12 @@ following should return `true`:
 ```ocaml
 {a = 5, b = 6} == {a = 5, c = "x"}
 ```
+
+### Masking methods
+
+Masking methods is complicated. In a first pass, we could ensure that labels are
+present only once by adding constraints to variables. We write `a!l` for a
+variable with the constraint that there should be no method labeled `l`.
 
 ## Compared to OCaml
 
