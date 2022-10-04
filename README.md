@@ -152,6 +152,14 @@ Error: This expression has type < a : int >
        The first object type has no method b
 ```
 
+This however goes through with explicit coercions
+
+```
+let l = [(x :> <a : int>); y]
+```
+
+which we don't want to have to use here.
+
 ## Subtyping
 
 One way of implementing this is by using _subtyping_. This means that we should
