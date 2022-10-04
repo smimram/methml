@@ -1,6 +1,45 @@
 # MethodML
 
-This is an experiment to add methods to ML.
+This is an experiment to add _methods_ to ML values, in order to provide a
+satisfying implementation of what is used in
+[Liquidsoap](http://www.liquidsoap.info). We add a construction
+
+```ocaml
+t.{l = u}
+```
+
+which means the value `t` decorated with a method with label `l` whose value is
+`u`. We can also use
+
+```ocaml
+t.l
+```
+
+to call the method of label `l` to `t`.
+
+We use the clear notation
+
+```ocaml
+t.{l₁ = u₁, l₂ = u₂, …, lₙ = uₙ}
+```
+
+as a shortcut for
+
+```ocaml
+t.{l₁ = u₁}.{l₂ = u₂}.….{lₙ = uₙ}
+```
+
+In particular, a record
+
+```ocaml
+{l₁ = u₁, …, lₙ = uₙ}
+```
+
+is the particular case of a decorated unit
+
+```ocaml
+().{l₁ = u₁, …, lₙ = uₙ}
+```
 
 <!-- ## Records with subtyping -->
 
