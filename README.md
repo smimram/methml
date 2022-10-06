@@ -180,6 +180,22 @@ have
 a.{l : b} <: a
 ```
 
+The problem is that this does not mix well with polymorphism. For instance,
+consider
+
+```ocaml
+fun x -> [x, {l = 5}]
+```
+
+could be given the types
+
+- `'a.{l : int} -> {l : int} list`
+- `'a.{l : string} -> unit list`
+- `'a!l -> unit list`
+
+where the first in incompatible with the two last.
+
+## The other way of implementing this 
 
 <!-- ## Records with subtyping -->
 
@@ -193,3 +209,17 @@ a.{l : b} <: a
 <!-- [this](https://github.com/stedolan/mlsub) and -->
 <!-- [this](https://github.com/smimram/mlsub) implementations) is nice but leads to -->
 <!-- unreadable types -->
+
+## Literature
+
+1. Mitchell Wand (1989): _Type inference for record concatenation and multiple
+  inheritance_
+  > Here, we suppose that we have a finite sets of labels.
+1. Didier Rémy (1993): _Type Inference for Records in a Natural Extension of ML_
+
+We list below whether
+
+- we have principal types
+- we can infer the principal types
+
+ | Principal | Inference |
