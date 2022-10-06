@@ -215,13 +215,20 @@ where the first in incompatible with the two last.
 1. Mitchell Wand (1989): _Type inference for record concatenation and multiple
    inheritance_
 
-   > Here, we suppose that we have a _finite_ set of labels. There is no
-   > principal type, but there is a finite set of generators, which can be
-   > computed. Records are extensible and concatenation is supported. The
-   > absence of principal type is due to concatenation: in `fun r₁ r₂ →
-   > (r₁@r₂).l` we don't know whether `l` belongs to `r₁` or `r₂`.
+   > Here, we suppose that we have a _finite_ set of labels. In a record, each
+   > label is assigned with a type `pre(a)` (the label is present and has type
+   > `a`) or `abs` (the label is absent). There is no principal type, but there
+   > is a finite set of generators, which can be computed. Records are
+   > extensible and concatenation is supported. The absence of principal type is
+   > due to concatenation: in `fun r₁ r₂ → (r₁@r₂).l` we don't know whether `l`
+   > belongs to `r₁` or `r₂`.
   
 1. Didier Rémy (1993): _Type Inference for Records in a Natural Extension of ML_
+
+   > Here, we have `pre` / `abs` types for labels, there are types variables and
+   > field type variables (which can be substituted by `pre` / `abs`). There are
+   > also row variables. The type system admits principal types. There is no
+   > subtyping.
 
 We list below whether
 
