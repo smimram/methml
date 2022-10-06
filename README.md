@@ -217,7 +217,9 @@ where the first in incompatible with the two last.
 
    > Here, we suppose that we have a _finite_ set of labels. There is no
    > principal type, but there is a finite set of generators, which can be
-   > computed. Records are extensible and concatenation is supported.
+   > computed. Records are extensible and concatenation is supported. The
+   > absence of principal type is due to concatenation: in `fun r₁ r₂ →
+   > (r₁@r₂).l` we don't know whether `l` belongs to `r₁` or `r₂`.
   
 1. Didier Rémy (1993): _Type Inference for Records in a Natural Extension of ML_
 
