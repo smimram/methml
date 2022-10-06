@@ -217,7 +217,7 @@ where the first in incompatible with the two last.
 
    > Here, we suppose that we have a _finite_ set of labels. There is no
    > principal type, but there is a finite set of generators, which can be
-   > computed.
+   > computed. Records are extensible and concatenation is supported.
   
 1. Didier Rémy (1993): _Type Inference for Records in a Natural Extension of ML_
 
@@ -225,5 +225,8 @@ We list below whether
 
 - we have principal types
 - we can infer the principal types
+- we have implicit subtyping
 
- | Principal | Inference |
+        | Principal | Inference | Subtyping |
+--------|-----------|-----------|-----------|
+Wand'89 | ✗ | ✓ |
