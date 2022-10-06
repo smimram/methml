@@ -213,9 +213,9 @@ where the first in incompatible with the two last.
 ## Literature
 
 1. Mitchell Wand (1989): _Type inference for record concatenation and multiple
-  inheritance_
+   inheritance_
   
-  Here, we suppose that we have a finite sets of labels.
+   Here, we suppose that we have a finite sets of labels.
   
 1. Didier Rémy (1993): _Type Inference for Records in a Natural Extension of ML_
 
