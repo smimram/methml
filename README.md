@@ -227,6 +227,6 @@ We list below whether
 - we can infer the principal types
 - we have implicit subtyping
 
-        | Principal | Inference | Subtyping |
+Paper | Principal | Inference | Subtyping |
 --------|-----------|-----------|-----------|
 Wand'89 | ✗ | ✓ |
