@@ -166,7 +166,7 @@ Error: This expression has type < a : int >
 
 This however goes through with explicit coercions
 
-```
+```ocaml
 let l = [(x :> <a : int>); y]
 ```
 
