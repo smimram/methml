@@ -72,7 +72,7 @@ fun x -> x.l
 
 should have type `'a.{l : 'b} -> 'b` (this is akin to polymorphic records).
 
-We should be able to type _method decoration_:
+We should also be able to type adding _method decorations_:
 
 ```ocaml
 fun x y -> x.{l = y}
@@ -123,7 +123,8 @@ int.{a : int} list
 
 Note that we drop the `b` method of the first element because the second one
 does not have it, and we drop the `c` method because the types for both elements
-don't match.
+don't match (actually this last point can be debated: if we don't allow fields
+with same name and different types, we should at least allow masking methods).
 
 This means that we can have surprising effects of this. For instance, the
 following should return `true`:
@@ -200,7 +201,10 @@ could be given the types
 - `'a.{l : string} -> unit list`
 - `'a!l -> unit list`
 
-where the first in incompatible with the two last.
+where the first in incompatible with the two last. The problem here is that we
+should be able to express that
+
+- if the in
 
 <!-- ## The other ways of implementing this  -->
 
