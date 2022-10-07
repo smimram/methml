@@ -171,6 +171,13 @@ let l = [(x :> <a : int>); y]
 
 which we don't want to have to use here.
 
+## Row polymorphism
+
+In _row polymorphism_, we have a special universal variable for records which
+indicates "all the remaining fields". Here, this corresponds to the type of the
+main value, so that we don't have to have two kinds of universal variables (row
+variables and traditional ones).
+
 ## Subtyping
 
 One way of implementing this is by using _subtyping_. This means that we should
@@ -233,14 +240,19 @@ where the first in incompatible with the two last.
 1. Ohory (1995): _A Polymorphic Record Calculus and Its Compilation_
 
    > Universal variables have constraints indicating which fields (with which
-   > type) are supposed to be present. For instance `fun r → r.l + r.m` has type
-   > `∀ (a : {l : int, m : int}), a → int`. We have principal types which can be
-   > inferred. It cannot (contrarily to row variables) represent adding a field
-   > or removing a field.
+   > type) are supposed to be present (this is called _kinded polymorphism_). For
+   > instance `fun r → r.l + r.m` has type `∀ (a : {l : int, m : int}), a →
+   > int`. We have principal types which can be inferred. It cannot (contrarily
+   > to row variables) represent adding a field or removing a field.
 
 1. Alves, Ramos (2021): _An ML-style Record Calculus with Extensible Records_
 
-   > Good references.
+   > Extends Ohory in order to have extensible records. Has good references to
+   > literature.
+   
+1. Dolan, Mycroft (2017): _Polymorphism, Subtyping, and Type Inference in MLsub_
+
+   > ...
 
 We list below whether
 
