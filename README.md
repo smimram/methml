@@ -208,6 +208,12 @@ should be able to express that
   case we have such a field in the output
 - if the argument has no field `l` then the output is `unit list`.
 
+The most natural representation of the type would be something like
+
+```
+a → a ∨ {l : int}
+```
+
 <!-- ## The other ways of implementing this  -->
 
 <!-- ## Records with subtyping -->
