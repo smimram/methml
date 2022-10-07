@@ -212,7 +212,7 @@ where the first in incompatible with the two last.
 
 ## Literature
 
-1. Mitchell Wand (1989): _Type inference for record concatenation and multiple
+1. Wand (1989): _Type inference for record concatenation and multiple
    inheritance_
 
    > Here, we suppose that we have a _finite_ set of labels. In a record, each
@@ -223,12 +223,22 @@ where the first in incompatible with the two last.
    > due to concatenation: in `fun r₁ r₂ → (r₁@r₂).l` we don't know whether `l`
    > belongs to `r₁` or `r₂`.
   
-1. Didier Rémy (1993): _Type Inference for Records in a Natural Extension of ML_
+1. Rémy (1993): _Type Inference for Records in a Natural Extension of ML_
 
    > Here, we have `pre` / `abs` types for labels, there are types variables and
    > field type variables (which can be substituted by `pre` / `abs`). There are
    > also row variables. The type system admits principal types. There is no
    > subtyping.
+   
+1. Ohory (1995): _A Polymorphic Record Calculus and Its Compilation_
+
+   > Universal variables have constraints indicating which fields (with which
+   > type) are supposed to be present. For instance `fun r → r.l + r.m` has type
+   > `∀ (a : {l : int, m : int}), a → int`
+
+1. Alves, Ramos (2021): _An ML-style Record Calculus with Extensible Records_
+
+   > Good references.
 
 We list below whether
 
