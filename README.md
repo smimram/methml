@@ -202,7 +202,7 @@ could be given the types
 
 where the first in incompatible with the two last.
 
-## The other way of implementing this 
+<!-- ## The other ways of implementing this  -->
 
 <!-- ## Records with subtyping -->
 
