@@ -234,7 +234,9 @@ where the first in incompatible with the two last.
 
    > Universal variables have constraints indicating which fields (with which
    > type) are supposed to be present. For instance `fun r → r.l + r.m` has type
-   > `∀ (a : {l : int, m : int}), a → int`
+   > `∀ (a : {l : int, m : int}), a → int`. We have principal types which can be
+   > inferred. It cannot (contrarily to row variables) represent adding a field
+   > or removing a field.
 
 1. Alves, Ramos (2021): _An ML-style Record Calculus with Extensible Records_
 
