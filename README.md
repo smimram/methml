@@ -204,7 +204,9 @@ could be given the types
 where the first in incompatible with the two last. The problem here is that we
 should be able to express that
 
-- if the in
+- if the argument has a field `l` then it should be of type `int` and in this
+  case we have such a field in the output
+- if the argument has no field `l` then the output is `unit list`.
 
 <!-- ## The other ways of implementing this  -->
 
