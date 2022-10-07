@@ -211,7 +211,7 @@ should be able to express that
 The most natural representation of the type would be something like
 
 ```
-a → a ∧ {l : int}
+a → (a ∧ {l : int})
 ```
 
 <!-- ## The other ways of implementing this  -->
