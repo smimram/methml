@@ -177,7 +177,13 @@ which we don't want to have to use here.
 In _row polymorphism_, we have a special universal variable for records which
 indicates "all the remaining fields". Here, this corresponds to the type of the
 main value, so that we don't have to have two kinds of universal variables (row
-variables and traditional ones).
+variables and traditional ones). For instance,
+
+```ocaml
+fun x -> {x with l = 3}
+```
+
+has type `'a -> {'a, l : int}`.
 
 ## Subtyping
 
