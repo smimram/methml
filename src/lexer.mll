@@ -7,6 +7,9 @@ rule token = parse
   | "->" { TO }
   | "let" { LET }
   | "rec" { REC }
+  (* | "if" { IF } *)
+  (* | "then" { THEN } *)
+  (* | "else" { ELSE } *)
   | "=" { EQ }
   | "in" { IN }
   | "(" { LPAR }

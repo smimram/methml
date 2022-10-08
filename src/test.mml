@@ -10,6 +10,10 @@ let q x y = y;;
 let ap f x = f x;;
 let two f x = f (f x);;
 
+# Booleans
+
+let b = true;;
+
 # Generalization
 
 let f =

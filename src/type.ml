@@ -2,9 +2,13 @@
 
 (** Ground types. *)
 module Ground = struct
-  type t = Int | String
+  type t =
+    | Int
+    | String
+    | Bool
 
   let to_string = function
+    | Bool -> "bool"
     | Int -> "int"
     | String -> "string"
 end
