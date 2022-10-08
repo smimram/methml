@@ -238,9 +238,12 @@ Let us investigate the first one here. We should
   still exist, e.g. in `if ... then 1 else "a"` we should see as early as
   possible that the return value would be `int ∨ string` which does not exist.
 
-Actually, as soon as we have supremums the two types `'a -> 'a -> 'a` and `'a ->
-'b -> 'a ∨ 'b` are equivalent, in the sense that each one subsumes the other, as
-noted in the MLsub paper (section 3.2).
+<!-- Actually, as soon as we have supremums the two types `'a -> 'a -> 'a` and `'a -> -->
+<!-- 'b -> 'a ∨ 'b` are equivalent, in the sense that each one subsumes the other, as -->
+<!-- noted in the MLsub paper (section 3.2). -->
+
+For the last point, we could have contraints: for instance, `'a` would have a
+constraint stating that it should be ∨-compatible with `'b`.
 
 ## Compared to OCaml
 
