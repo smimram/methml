@@ -179,7 +179,8 @@ a → (a ∧ {l : int})
 which is quite heavy.
 
 Let us provide another way of representing this. We write `a?` for the type "`a`
-or absent".
+or absent". We can maybe think of `a?` as being `'a + ⊥` where `⊥` is the empty
+type.
 
 ### Supremums
 
@@ -211,9 +212,20 @@ Another example is
 fun b -> if b then 12 else null
 ```
 
-which should have type `int nullable`.
+which should have type `int nullable`. And, of course, the situation would be
+similar with `::` (cons), etc.
 
 This means that we should either
+
+1. give `if` the type `bool -> 'a -> 'b -> 'a ∨ 'b`,
+2. give `if` the usual type `bool -> 'a -> 'a -> 'a` but allow the type `'a` to
+   "grow" if needed.
+
+The first solution is currently implemented in Liquidsoap, but this causes
+problems. Namely, because some variables are in contravariant position (on the
+left of an arrow for instance), some variables are allowed to grow and some are
+allowed to get smaller, and it is not clear what happens when we substitute a
+growing variable with a diminishing one.
 
 ## Compared to OCaml
 
