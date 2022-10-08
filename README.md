@@ -59,8 +59,8 @@ case of universal variable.
 
 We want to keep usual properties of typing
 
-- we should be able to infer types,
-- there should be a principal type.
+- we should have _principal types_,
+- we should be able to _infer_ it.
 
 ### Basic methods
 
