@@ -23,11 +23,12 @@ type var = {
 and t =
   | Var of var
   | Ground of Ground.t
+  | Meth of string * t * t
   | Arr of t * t
   | List of t
 
 (** Type scheme: non-substituted variables strictly above the level should be
-   instantiated. *)
+    instantiated. *)
 and scheme = level * t
 
 (** Equality between variables. *)
@@ -72,6 +73,7 @@ let to_string ?(var=var_nice) a =
     | Ground g -> Ground.to_string g
     | Arr (a, b) -> Printf.sprintf "(%s -> %s)" (aux a) (aux b)
     | List a -> Printf.sprintf "[%s]" (aux a)
+    | Meth (l, a, b) -> Printf.sprintf "%s.{%s : %s}" (aux b) l (aux a)
   in
   aux a
 
@@ -110,6 +112,7 @@ let rec occurs x a =
   | Ground _ -> ()
   | Arr (a, b) -> occurs x a; occurs x b
   | List a -> occurs x a
+  | Meth (_, a, b) -> occurs x a; occurs x b
 
 (** Instantiate a type scheme as a type. *)
 let instantiate level ((l,a):scheme) =
@@ -127,6 +130,7 @@ let instantiate level ((l,a):scheme) =
         )
     | Ground g -> Ground g
     | List _ -> failwith "TODO"
+    | Meth _ -> failwith "TODO"
     | Arr (a, b) -> Arr (aux a, aux b)
   in
   if l = max_int then a else aux a
@@ -149,10 +153,16 @@ let rec infer ?(level=0) (env:(string*scheme) list) t =
     let b = var level in
     infer env t <: Arr (a, b);
     b
-  | Meth _ ->
-    failwith "TODO"
-  | Invoke _ ->
-    failwith "TODO"
+  | Meth (l, t, u) ->
+    let a = infer env t in
+    let b = infer env u in
+    Meth (l, a, b)
+  | Invoke (t, l) ->
+    let a = var level in
+    let b = var level in
+    let c = infer env t in
+    c <: Meth (l, a, b);
+    a
   | List _ ->
     failwith "TODO"
   | Let (r, x, t, u) ->

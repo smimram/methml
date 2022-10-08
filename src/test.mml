@@ -1,7 +1,15 @@
+# Basic
+
 let n = 4;;
+let s = "bla";;
 let id x = x;;
 let p x y = x;;
 let q x y = y;;
 let ap f x = f x;;
 let two f x = f (f x);;
+
+# Records
+
+let field r = r.l;;
+
 # let d = fun f -> { l = f 1 , r = f "a" };;
