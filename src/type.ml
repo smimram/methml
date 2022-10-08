@@ -82,14 +82,14 @@ let var_eq (x:var) (y:var) =
   (* we want _physical_ equality here *)
   x == y
 
+let invar =
+  let id = ref (-1) in
+  fun ?link level ->
+    incr id;
+    { id = !id; level; link }
+
 (** Create a fresh variable. *)
 let var ?link level =
-  let invar =
-    let id = ref (-1) in
-    fun ?link level ->
-      incr id;
-      { id = !id; level; link }
-  in
   Var (invar ?link level)
 
 (** A typing error. *)

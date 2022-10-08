@@ -1,6 +1,6 @@
 let n = 4;;
 let id x = x;;
-let p x y =x;;
+let p x y = x;;
 let q x y = y;;
 let ap f x = f x;;
 let two f x = f (f x);;
