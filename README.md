@@ -139,6 +139,41 @@ Masking methods is complicated. In a first pass, we could ensure that labels are
 present only once by adding constraints to variables. We write `a!l` for a
 variable with the constraint that there should be no method labeled `l`.
 
+### Subtyping
+
+We also want to have _implicit subtyping_ : we can forget about some of the
+methods we have. This means that we should have
+
+```
+a.{l : b} <: a
+```
+
+The problem is that this does not mix well with polymorphism. For instance,
+consider
+
+```ocaml
+fun x -> [x, {l = 5}]
+```
+
+could be given the types
+
+- `'a.{l : int} -> {l : int} list`
+- `'a.{l : string} -> unit list`
+- `'a!l -> unit list`
+
+where the first in incompatible with the two last. The problem here is that we
+should be able to express that
+
+- if the argument has a field `l` then it should be of type `int` and in this
+  case we have such a field in the output
+- if the argument has no field `l` then the output is `unit list`.
+
+The most natural representation of the type would be something like
+
+```
+a → (a ∧ {l : int})
+```
+
 ## Compared to OCaml
 
 This is akin records in OCaml excepting that we want extensible records:
@@ -184,41 +219,6 @@ fun x -> {x with l = 3}
 ```
 
 has type `'a -> {'a, l : int}`.
-
-## Subtyping
-
-One way of implementing this is by using _subtyping_. This means that we should
-have
-
-```
-a.{l : b} <: a
-```
-
-The problem is that this does not mix well with polymorphism. For instance,
-consider
-
-```ocaml
-fun x -> [x, {l = 5}]
-```
-
-could be given the types
-
-- `'a.{l : int} -> {l : int} list`
-- `'a.{l : string} -> unit list`
-- `'a!l -> unit list`
-
-where the first in incompatible with the two last. The problem here is that we
-should be able to express that
-
-- if the argument has a field `l` then it should be of type `int` and in this
-  case we have such a field in the output
-- if the argument has no field `l` then the output is `unit list`.
-
-The most natural representation of the type would be something like
-
-```
-a → (a ∧ {l : int})
-```
 
 <!-- ## The other ways of implementing this  -->
 
