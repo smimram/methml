@@ -207,7 +207,7 @@ let l = [(x :> <a : int>); y]
 
 which we don't want to have to use here.
 
-## Row polymorphism
+### Row polymorphism
 
 In _row polymorphism_, we have a special universal variable for records which
 indicates "all the remaining fields". Here, this corresponds to the type of the
@@ -218,7 +218,9 @@ variables and traditional ones). For instance,
 fun x -> {x with l = 3}
 ```
 
-has type `'a -> {'a, l : int}`.
+has type `'a -> {'a, l : int}`. Usually, row variables are special universal
+variables, distinct from other ones (they can only be substituted with
+records). Here, this is nicer because we use traditional universal variables.
 
 <!-- ## The other ways of implementing this  -->
 
