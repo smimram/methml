@@ -71,11 +71,14 @@ let to_string a =
   aux a
 *)
 
-let rec to_string = function
+let to_string a =
+  let rec aux = function
   | Var x -> "'a" ^ string_of_int x.id
   | Ground g -> Ground.to_string g
-  | Arr (a, b) -> Printf.sprintf "(%s -> %s)" (to_string a) (to_string b)
-  | List a -> Printf.sprintf "[%s]" (to_string a)
+  | Arr (a, b) -> Printf.sprintf "(%s -> %s)" (aux a) (aux b)
+  | List a -> Printf.sprintf "[%s]" (aux a)
+  in
+  aux a
 
 (** Equality between variables. *)
 let var_eq (x:var) (y:var) =
