@@ -18,7 +18,7 @@ rule token = parse
   | "," { COMMA }
   | ";" { SC }
   | "." { DOT }
-  | (['a'-'z']+ as s) { IDENT s }
+  | (['a'-'z']['a'-'z''\'']* as s) { IDENT s }
   | "\""([^'"']+ as s)"\"" { STRING s }
   | (['0'-'9']+ as n) { INT (int_of_string n) }
   | [' ']+ { token lexbuf }

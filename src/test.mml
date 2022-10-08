@@ -10,6 +10,18 @@ let q x y = y;;
 let ap f x = f x;;
 let two f x = f (f x);;
 
+# Generalization
+
+let f =
+  let id x = x in
+  id
+;;
+
+let f' y =
+  let g x = y in
+  g
+;;
+
 # Records
 
 let field r = r.l;;
