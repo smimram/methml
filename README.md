@@ -148,7 +148,7 @@ variable with the constraint that there should be no method labeled `l`.
 
 ### Subtyping vs polymorphism
 
-The problem is that this does not mix well with polymorphism. For instance,
+A problem is that subtyping does not mix well with polymorphism. For instance,
 consider
 
 ```ocaml
