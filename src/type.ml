@@ -163,8 +163,10 @@ let rec infer ?(level=0) (env:(string*scheme) list) t =
     let c = infer env t in
     c <: Meth (l, a, b);
     a
-  | List _ ->
-    failwith "TODO"
+  | List l ->
+    let a = var level in
+    List.iter (fun t -> infer env t <: a) l;
+    List a
   | Let (r, x, t, u) ->
     let a =
       if r then

@@ -13,6 +13,8 @@ rule token = parse
   | ")" { RPAR }
   | "{" { LACC }
   | "}" { RACC }
+  | "[" { LSPAR }
+  | "]" { RSPAR }
   | "," { COMMA }
   | ";" { SC }
   | "." { DOT }

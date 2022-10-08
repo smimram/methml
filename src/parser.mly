@@ -3,7 +3,7 @@ open Lang
 %}
 
 %token FUN TO LET REC EQ IN APP
-%token LPAR RPAR SC
+%token LPAR RPAR LSPAR RSPAR SC
 %token LACC RACC COMMA DOT
 %token<string> IDENT
 %token<int> INT
@@ -17,8 +17,10 @@ open Lang
 %type<bool * string * Lang.t> decl
 %type<Lang.t> expr
 %type<bool> recursive
+%type<string list> args
+%type<Lang.t list> expr_list
 
-%nonassoc INT STRING IDENT FUN LACC TO LET IN
+%nonassoc INT STRING IDENT FUN TO LET IN LSPAR
 %left DOT LPAR
 %nonassoc APP
 %%
@@ -46,6 +48,12 @@ expr:
   | expr DOT LACC STRING EQ expr RACC { mk ~pos:$loc (Meth ($4, $6, $1)) }
   | expr DOT IDENT { mk ~pos:$loc (Invoke ($1, $3)) }
   | LPAR expr RPAR { $2 }
+  | LSPAR expr_list RSPAR { mk ~pos:$loc (List $2) }
+  | LSPAR expr RSPAR { mk ~pos:$loc (List [$2]) }
+
+expr_list:
+  | { [] }
+  | expr COMMA expr_list { $1::$3 }
 
 args:
   | { [] }
