@@ -1,10 +1,4 @@
-(** Suppose that we have some builtins already defined. *)
-let builtin =
-  let open Type in
-  [
-    "concat", Arr (Ground String, Ground String)
-  ]
-let builtin = List.map (fun (x,a) -> (x,(-1,a))) builtin
+let builtin = Builtin.get ()
 
 let () =
   let fname = Sys.argv.(1) in
