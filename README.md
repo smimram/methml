@@ -142,10 +142,6 @@ following should return `true`:
 {a = 5, b = 6} == {a = 5, c = "x"}
 ```
 
-### Growing types
-
-
-
 ### Masking methods
 
 Masking methods is complicated. In a first pass, we could ensure that labels are
@@ -174,11 +170,50 @@ should be able to express that
   case we have such a field in the output
 - if the argument has no field `l` then the output is `unit list`.
 
-The most natural representation of the type would be something like
+A natural representation of the type would be something like
 
 ```
 a → (a ∧ {l : int})
 ```
+
+which is quite heavy.
+
+Let us provide another way of representing this. We write `a?` for the type "`a`
+or absent".
+
+### Supremums
+
+We want the return value of `if` to be the supremum of the two branches. For instance,
+
+```ocaml
+fun b ->
+  if b then
+    {a : 4, b : 5}
+  else
+    {a : 2, c : 1}
+```
+
+should be of type
+
+```
+bool -> {a : int}
+```
+
+where
+
+```
+{a : int} = {a : int, b : int} ∨ {a : int, c : int}
+```
+
+Another example is
+
+```ocaml
+fun b -> if b then 12 else null
+```
+
+which should have type `int nullable`.
+
+This means that we should either
 
 ## Compared to OCaml
 
