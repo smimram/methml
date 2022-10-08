@@ -173,14 +173,18 @@ should be able to express that
 A natural representation of the type would be something like
 
 ```
-a → (a ∧ {l : int})
+'a → ('a ∧ {l : int})
 ```
 
 which is quite heavy.
 
 Let us provide another way of representing this. We write `a?` for the type "`a`
 or absent". We can maybe think of `a?` as being `'a + ⊥` where `⊥` is the empty
-type.
+type. The above function could then have the type
+
+```
+'a.{l : int?} as 'b -> 'b
+```
 
 ### Supremums
 
