@@ -34,17 +34,17 @@ decl:
   | LET recursive IDENT EQ expr { $2, $3, $5 }
 
 expr:
-  | INT { Int $1 }
-  | STRING { String $1 }
-  | IDENT { Var $1 }
-  | FUN IDENT TO expr { Abs ($2, $4) }
+  | INT { mk ~pos:$loc (Int $1) }
+  | STRING { mk ~pos:$loc (String $1) }
+  | IDENT { mk ~pos:$loc (Var $1) }
+  | FUN IDENT TO expr { mk ~pos:$loc (Abs ($2, $4)) }
   (* Precedence of application is tricky:
      https://ptival.github.io/2017/05/16/parser-generators-and-function-application/
      *)
-  | expr expr %prec APP { App ($1, $2) }
-  | decl IN expr { let r, x, t = $1 in Let (r, x, t, $3) }
-  | expr DOT LACC STRING EQ expr RACC { Meth ($4, $6, $1) }
-  | expr DOT IDENT { Invoke ($1, $3) }
+  | expr expr %prec APP { mk ~pos:$loc (App ($1, $2)) }
+  | decl IN expr { let r, x, t = $1 in mk ~pos:$loc (Let (r, x, t, $3)) }
+  | expr DOT LACC STRING EQ expr RACC { mk ~pos:$loc (Meth ($4, $6, $1)) }
+  | expr DOT IDENT { mk ~pos:$loc (Invoke ($1, $3)) }
   | LPAR expr RPAR { $2 }
 
 recursive:

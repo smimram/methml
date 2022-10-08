@@ -41,7 +41,7 @@ let () =
     List.fold_left
       (fun env (_,x,t) ->
          let a = Type.infer env t in
-         Printf.printf "%s : %s\n%!" x (Repr.to_string (Repr.make a));
+         Printf.printf "%s : %s\n%!" x (Type.to_string a);
          (x,(-1,a))::env
       ) builtin prog
   in

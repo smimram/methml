@@ -131,7 +131,9 @@ int.{a : int} list
 Note that we drop the `b` method of the first element because the second one
 does not have it, and we drop the `c` method because the types for both elements
 don't match (actually this last point can be debated: if we don't allow fields
-with same name and different types, we should at least allow masking methods).
+with same name and different types, we should at least allow masking methods in
+order to still be able to force forgetting the methods and still be able to
+define such lists).
 
 This means that we can have surprising effects of this. For instance, the
 following should return `true`:
@@ -139,6 +141,10 @@ following should return `true`:
 ```ocaml
 {a = 5, b = 6} == {a = 5, c = "x"}
 ```
+
+### Growing types
+
+
 
 ### Masking methods
 
