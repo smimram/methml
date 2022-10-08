@@ -31,13 +31,13 @@ decls:
   | { [] }
 
 decl:
-  | LET recursive IDENT EQ expr { $2, $3, $5 }
+  | LET recursive IDENT args EQ expr { $2, $3, abs ~pos:$loc $4 $6 }
 
 expr:
   | INT { mk ~pos:$loc (Int $1) }
   | STRING { mk ~pos:$loc (String $1) }
   | IDENT { mk ~pos:$loc (Var $1) }
-  | FUN IDENT TO expr { mk ~pos:$loc (Abs ($2, $4)) }
+  | FUN IDENT TO expr { abs ~pos:$loc [$2] $4 }
   (* Precedence of application is tricky:
      https://ptival.github.io/2017/05/16/parser-generators-and-function-application/
      *)
@@ -46,6 +46,10 @@ expr:
   | expr DOT LACC STRING EQ expr RACC { mk ~pos:$loc (Meth ($4, $6, $1)) }
   | expr DOT IDENT { mk ~pos:$loc (Invoke ($1, $3)) }
   | LPAR expr RPAR { $2 }
+
+args:
+  | { [] }
+  | IDENT args { $1::$2 }
 
 recursive:
   | REC { true }

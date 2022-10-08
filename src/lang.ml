@@ -27,6 +27,11 @@ and descr =
 
 let mk ~pos descr = { pos; descr }
 
+let rec abs ~pos l t =
+  match l with
+  | x::l -> mk ~pos (Abs (x, abs ~pos l t))
+  | [] -> t
+
 (** String representation of a program. *)
 let rec to_string t =
   match t.descr with
