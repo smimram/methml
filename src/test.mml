@@ -1,5 +1,7 @@
 let n = 4;;
 let id = fun x -> x;;
+let p = fun x -> fun y -> x;;
+let q = fun x -> fun y -> y;;
 let ap = fun f -> fun x -> (f x);;
 let two = fun f -> fun x -> f (f x);;
 # let d = fun f -> { l = f 1 , r = f "a" };;
