@@ -99,13 +99,20 @@ let () =
 However, we should either not be able to have the same label twice, or forbid
 that two methods with the same label commute.
 
-### Dropping methods
+### Dropping methods / subtyping
 
 We should be able to use `t.{l = u}` in every place where `t` should be accepted
 (without using the method `l`). This means that, we should accept
 
 ```ocaml
 1.{l = "a"} + 2
+```
+
+From the point of view of types, this means that we want to have _implicit
+subtyping_. This means that we should have
+
+```
+a.{l : b} <: a
 ```
 
 This also mean that we should accept heterogeneous lists as long as the
@@ -139,14 +146,7 @@ Masking methods is complicated. In a first pass, we could ensure that labels are
 present only once by adding constraints to variables. We write `a!l` for a
 variable with the constraint that there should be no method labeled `l`.
 
-### Subtyping
-
-We also want to have _implicit subtyping_ : we can forget about some of the
-methods we have. This means that we should have
-
-```
-a.{l : b} <: a
-```
+### Subtyping vs polymorphism
 
 The problem is that this does not mix well with polymorphism. For instance,
 consider
