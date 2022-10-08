@@ -14,6 +14,8 @@ let two f x = f (f x);;
 
 let b = true;;
 
+let n b = if b then 1 else 0 end;;
+
 # Generalization
 
 let f =
@@ -29,5 +31,5 @@ let f' y =
 # Records
 
 let field r = r.l;;
-
+# let adder r = r.x + r.y;;
 # let d = fun f -> { l = f 1 , r = f "a" };;

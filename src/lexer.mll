@@ -7,9 +7,10 @@ rule token = parse
   | "->" { TO }
   | "let" { LET }
   | "rec" { REC }
-  (* | "if" { IF } *)
-  (* | "then" { THEN } *)
-  (* | "else" { ELSE } *)
+  | "if" { IF }
+  | "then" { THEN }
+  | "else" { ELSE }
+  | "end" { END }
   | "=" { EQ }
   | "in" { IN }
   | "(" { LPAR }
@@ -21,6 +22,7 @@ rule token = parse
   | "," { COMMA }
   | ";" { SC }
   | "." { DOT }
+  | "+" { PLUS }
   | (['a'-'z']['a'-'z''\'']* as s) { IDENT s }
   | "\""([^'"']+ as s)"\"" { STRING s }
   | (['0'-'9']+ as n) { INT (int_of_string n) }

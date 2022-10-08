@@ -11,12 +11,17 @@ let bool =
     "if", Arr (Ground Bool, Arr (a, Arr (a, a)))
   ]
 
+let int =
+  [
+    "add", Arr (Ground Int, Arr (Ground Int, Ground Int))
+  ]
+
 let string =
   [
     "concat", Arr (Ground String, Ground String);
   ]
 
-let builtin = bool@string
+let builtin = bool@int@string
 
 let builtin = List.map (fun (x,a) -> (x,(-1,a))) builtin
 

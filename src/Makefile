@@ -12,3 +12,6 @@ conflicts:
 	@rm -f parser.ml parser.mli
 	@less parser.conflicts
 	@rm -f parser.conflicts
+
+ci:
+	$(MAKE) -C .. $@

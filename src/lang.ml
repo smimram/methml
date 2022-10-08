@@ -27,9 +27,16 @@ and descr =
 
 let mk ~pos descr = { pos; descr }
 
+let var ~pos x = mk ~pos (Var x)
+
 let rec abs ~pos l t =
   match l with
   | x::l -> mk ~pos (Abs (x, abs ~pos l t))
+  | [] -> t
+
+let rec app ~pos t l =
+  match l with
+  | x::l -> app ~pos (mk ~pos (App (t, x))) l
   | [] -> t
 
 (** String representation of a program. *)

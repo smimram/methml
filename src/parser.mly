@@ -2,9 +2,10 @@
 open Lang
 %}
 
-%token FUN TO LET REC EQ IN APP
+%token FUN TO LET REC EQ IN APP IF THEN ELSE END
 %token LPAR RPAR LSPAR RSPAR SC
 %token LACC RACC COMMA DOT
+%token PLUS
 %token<string> IDENT
 %token<int> INT
 %token<string> STRING
@@ -20,7 +21,8 @@ open Lang
 %type<string list> args
 %type<Lang.t list> expr_list
 
-%nonassoc INT STRING IDENT FUN TO LET IN LSPAR
+%nonassoc INT STRING IDENT FUN TO LET IN LSPAR IF
+%right PLUS
 %left DOT LPAR
 %nonassoc APP
 %%
@@ -50,6 +52,8 @@ expr:
   | LPAR expr RPAR { $2 }
   | LSPAR RSPAR { mk ~pos:$loc (List []) }
   | LSPAR expr_list RSPAR { mk ~pos:$loc (List $2) }
+  | IF expr THEN expr ELSE expr END { app ~pos:$loc (var ~pos:$loc "if") [$2;$4;$6] }
+  | expr PLUS expr { app ~pos:$loc (var ~pos:$loc($2) "add") [$1;$3] }
 
 expr_list:
   | expr { [$1] }
