@@ -30,60 +30,50 @@ and t =
    instantiated. *)
 and scheme = level * t
 
-
-(*
-(** Given a strictly positive integer, generate a name in [a-z]+: a, b, ... z,
-    aa, ab, ... az, ba, ... *)
-let string_of_univ =
-  let base = 26 in
-  let c i = char_of_int (int_of_char 'a' + i - 1) in
-  let add i suffix = Printf.sprintf "%c%s" (c i) suffix in
-  let rec n suffix i =
-    if i <= base then
-      add i suffix
-    else
-      let head = i mod base in
-      let head = if head = 0 then base else head in
-      n (add head suffix) ((i-head)/base)
-  in
-  n ""
-
-let to_string a =
-  let var =
-    let n = ref 0 in
-    let v = ref [] in
-    fun x ->
-      match List.find_map (fun (y,s) -> if Type.var_eq x y then Some s else None) !v with
-      | Some s -> s
-      | None ->
-        incr n;
-        let s = "`" ^ string_of_univ !n in
-        v := (x,s) :: !v;
-        s
-  in
-  let rec aux = function
-    | Ground Int -> "int"
-    | Ground String -> "string"
-    | Var x -> var x
-    | Arr (a, b) -> Printf.sprintf "(%s -> %s)" (to_string a) (to_string b)
-    | List a -> Printf.
-  in
-  aux a
-*)
-
-let to_string a =
-  let rec aux = function
-  | Var x -> "'a" ^ string_of_int x.id
-  | Ground g -> Ground.to_string g
-  | Arr (a, b) -> Printf.sprintf "(%s -> %s)" (aux a) (aux b)
-  | List a -> Printf.sprintf "[%s]" (aux a)
-  in
-  aux a
-
 (** Equality between variables. *)
 let var_eq (x:var) (y:var) =
   (* we want _physical_ equality here *)
   x == y
+
+let var_nice () =
+  (* Given a strictly positive integer, generate a name in [a-z]+: a, b, ... z,
+     aa, ab, ... az, ba, ... *)
+  let string_of_univ =
+    let base = 26 in
+    let c i = char_of_int (int_of_char 'a' + i - 1) in
+    let add i suffix = Printf.sprintf "%c%s" (c i) suffix in
+    let rec n suffix i =
+      if i <= base then
+        add i suffix
+      else
+        let head = i mod base in
+        let head = if head = 0 then base else head in
+        n (add head suffix) ((i-head)/base)
+    in
+    n ""
+  in
+  let n = ref 0 in
+  let v = ref [] in
+  fun x ->
+    match List.find_map (fun (y,s) -> if var_eq x y then Some s else None) !v with
+    | Some s -> s
+    | None ->
+      incr n;
+      let s = "'" ^ string_of_univ !n in
+      v := (x,s) :: !v;
+      s
+
+let var_simple () x = "'a" ^ string_of_int x.id
+
+let to_string ?(var=var_nice) a =
+  let var = var () in
+  let rec aux = function
+    | Var x -> var x
+    | Ground g -> Ground.to_string g
+    | Arr (a, b) -> Printf.sprintf "(%s -> %s)" (aux a) (aux b)
+    | List a -> Printf.sprintf "[%s]" (aux a)
+  in
+  aux a
 
 let invar =
   let id = ref (-1) in
