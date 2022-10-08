@@ -231,6 +231,17 @@ left of an arrow for instance), some variables are allowed to grow and some are
 allowed to get smaller, and it is not clear what happens when we substitute a
 growing variable with a diminishing one.
 
+Let us investigate the first one here. We should
+
+- allow simplifying types: `int ∨ int = int`, `int ∨ (X ∨ int) = int ∨ X`, etc.
+- when substituting universal variables, we should make sure that supremums
+  still exist, e.g. in `if ... then 1 else "a"` we should see as early as
+  possible that the return value would be `int ∨ string` which does not exist.
+
+Actually, as soon as we have supremums the two types `'a -> 'a -> 'a` and `'a ->
+'b -> 'a ∨ 'b` are equivalent, in the sense that each one subsumes the other, as
+noted in the MLsub paper (section 3.2).
+
 ## Compared to OCaml
 
 This is akin records in OCaml excepting that we want extensible records:
