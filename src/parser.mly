@@ -48,11 +48,11 @@ expr:
   | expr DOT LACC STRING EQ expr RACC { mk ~pos:$loc (Meth ($4, $6, $1)) }
   | expr DOT IDENT { mk ~pos:$loc (Invoke ($1, $3)) }
   | LPAR expr RPAR { $2 }
+  | LSPAR RSPAR { mk ~pos:$loc (List []) }
   | LSPAR expr_list RSPAR { mk ~pos:$loc (List $2) }
-  | LSPAR expr RSPAR { mk ~pos:$loc (List [$2]) }
 
 expr_list:
-  | { [] }
+  | expr { [$1] }
   | expr COMMA expr_list { $1::$3 }
 
 args:

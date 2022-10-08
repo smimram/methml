@@ -69,7 +69,8 @@ let var_simple () x = "'a" ^ string_of_int x.id
 let to_string ?(var=var_nice) a =
   let var = var () in
   let rec aux = function
-    | Var x -> var x
+    | Var x when x.link = None -> var x
+    | Var x -> aux (Option.get x.link)
     | Ground g -> Ground.to_string g
     | Arr (a, b) -> Printf.sprintf "(%s -> %s)" (aux a) (aux b)
     | List a -> Printf.sprintf "[%s]" (aux a)

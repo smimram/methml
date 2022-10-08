@@ -2,7 +2,8 @@
 
 let n = 4;;
 let s = "bla";;
-let l = [1];;
+let e = [];;
+let l = [1 , 2];;
 let id x = x;;
 let p x y = x;;
 let q x y = y;;
