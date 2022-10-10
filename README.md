@@ -223,7 +223,14 @@ This means that we should either
 
 1. give `if` the type `bool -> 'a -> 'b -> 'a ∨ 'b`,
 2. give `if` the usual type `bool -> 'a -> 'a -> 'a` but allow the type `'a` to
-   "grow" if needed.
+   "grow" if needed,
+3. give `if` the type `bool -> 'a.{'r, 's} -> 'a.{'r, 't} -> 'a -> 'a.{'r}`
+   (have row variables).
+   
+The two first are somehow equivalent when we have both subtyping and supremums: it is
+noted in the MLsub paper (section 3.2) that the two types `'a -> 'a -> 'a` and
+`'b -> 'c -> 'b ∨ 'c` are equivalent, in the sense that each one subsumes the
+other (left-to-right: take `'a = 'b ∨ 'c`, right-to-left: take `'b = 'c = 'a`).
 
 The first solution is currently implemented in Liquidsoap, but this causes
 problems. Namely, because some variables are in contravariant position (on the
@@ -238,11 +245,7 @@ Let us investigate the first one here. We should
   still exist, e.g. in `if ... then 1 else "a"` we should see as early as
   possible that the return value would be `int ∨ string` which does not exist.
 
-<!-- Actually, as soon as we have supremums the two types `'a -> 'a -> 'a` and `'a -> -->
-<!-- 'b -> 'a ∨ 'b` are equivalent, in the sense that each one subsumes the other, as -->
-<!-- noted in the MLsub paper (section 3.2). -->
-
-For the last point, we could have contraints: for instance, `'a` would have a
+For the last point, we could have _constraints_: for instance, `'a` would have a
 constraint stating that it should be ∨-compatible with `'b`.
 
 ## Compared to OCaml
@@ -304,8 +307,7 @@ records). Here, this is nicer because we use traditional universal variables.
 <!-- In _MLsub_ the idea is that every type variable is attached with an interval. -->
 
 <!-- The one of [MLsub](https://dl.acm.org/doi/10.1145/3093333.3009882) (see also -->
-<!-- [this](https://github.com/stedolan/mlsub) and -->
-<!-- [this](https://github.com/smimram/mlsub) implementations) is nice but leads to -->
+<!-- ) is nice but leads to -->
 <!-- unreadable types -->
 
 ## Literature
@@ -343,7 +345,16 @@ records). Here, this is nicer because we use traditional universal variables.
    
 1. Dolan, Mycroft (2017): _Polymorphism, Subtyping, and Type Inference in MLsub_
 
-   > ...
+   > They add a distributive lattice structure to types. This is theoretically
+   > very nice (although the implementation is not so direct: see Parreaux, _The
+   > simple essence of algebraic subtyping: principal type inference with
+   > subtyping made easy_, as well as [this](https://github.com/stedolan/mlsub)
+   > and [my](https://github.com/smimram/mlsub) implementations). However, the
+   > types are quickly unreadable and very (too) permissive (because expressive):
+   > - `fun x → x : 'a → 'a`
+   > - `fun f x → f x : ('a ∧ ('b → 'c)) → 'b → 'c`
+   > - `fun x -> x x : ('a ∧ ('a → 'b)) → 'b`
+   > - `(fun x -> x x) (fun x -> x x) : 'a`
 
 We list below whether
 
