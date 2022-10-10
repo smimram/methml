@@ -352,8 +352,8 @@ records). Here, this is nicer because we use traditional universal variables.
    > and [my](https://github.com/smimram/mlsub) implementations). However, there
    > are issues. First, types are quickly unreadable (which can be mitigated by
    > an automata-based post-processing of types). Second, types are "too"
-   > permissive, because they are very expressive: for instance, we have
-   > λ-calculus' Ω
+   > permissive, because they are very expressive. For instance, we have
+   > λ-calculus' Ω:
    >
    > - `fun x -> x x : ('a ∧ ('a → 'b)) → 'b`
    > - `(fun x -> x x) (fun x -> x x) : 'a`
