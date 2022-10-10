@@ -349,10 +349,11 @@ records). Here, this is nicer because we use traditional universal variables.
    > very nice (although the implementation is not so direct: see Parreaux, _The
    > simple essence of algebraic subtyping: principal type inference with
    > subtyping made easy_, as well as [this](https://github.com/stedolan/mlsub)
-   > and [my](https://github.com/smimram/mlsub) implementations). However, the
-   > types are quickly unreadable and very (too) permissive (because expressive):
-   > - `fun x → x : 'a → 'a`
-   > - `fun f x → f x : ('a ∧ ('b → 'c)) → 'b → 'c`
+   > and [my](https://github.com/smimram/mlsub) implementations). However, there
+   > are issues. First, types are quickly unreadable (which can be mitigated by
+   > an automata-based post-processing of types). Second, types are "too"
+   > permissive, because they are very expressive: for instance,
+   >
    > - `fun x -> x x : ('a ∧ ('a → 'b)) → 'b`
    > - `(fun x -> x x) (fun x -> x x) : 'a`
 
